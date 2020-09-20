@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +15,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+
+    $books = App\Book::all();
+    $chapters = App\Chapter::all();
+    
+    return view('welcome', compact('books', 'chapters'));
+})->middleware('auth');
+
+Auth::routes();
+
+Route::get('/home', function () {
+    return redirect('/');
 });
+
+Route::post('/signatures', 'SignaturesController@signature')->name('signature');
+Route::post('/evaluations', 'SignaturesController@evaluation')->name('evaluation');
+Route::post('/many-signatures', 'SignaturesController@manySignatures')->name('mSignatures');
+Route::post('/many-evaluations', 'SignaturesController@manyEvaluations')->name('mEvaluations');

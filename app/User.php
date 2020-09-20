@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'display_name', 'title', 'password',
     ];
 
     /**
@@ -36,4 +36,29 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function signatures() {
+        return $this->hasMany(Signature::class);
+    }
+
+    public function signaturesForChapter($chapterID) {
+        return $this->signatures->where('chapter_id', $chapterID)->sortBy('evaluation');
+    }
+
+    public function completedChapters($bookID) {
+        
+        return $this->signatures->where('book_id', $bookID)->where('evaluation', 1)->count();
+    }
+
+    public function signatureCount($chapterID) {
+        return $this->signatures->where('chapter_id', $chapterID)->where('evaluation', 0)->count();
+    }
+
+    public function evaluationCount($chapterID) {
+        return $this->signatures->where('chapter_id', $chapterID)->where('evaluation', 1)->count();
+    }
+
+    public function currentBook() {
+        return $this->signatures()->latest()->first()->book_id ?? 1;
+    }
 }

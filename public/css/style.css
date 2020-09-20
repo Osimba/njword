@@ -1,0 +1,118 @@
+.home-banner {
+    max-width: 1520px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.home-header {
+    position: relative;
+    height: 500px;
+    background-image: url('/img/geese-banner.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.overlay {
+    width: 100%;
+    height: 100%;
+    background-color: #000000b2;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-header-content {
+    z-index: 2;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    color: #FFF;
+}
+
+.book-status {
+    max-width: 1520px;
+    padding: 0 20px;
+    margin-top: 25px;
+}
+    .book-status span {
+        width: 75px;
+        text-align: center;
+    }
+    .book-status div {
+        width: 90%;
+    }
+    .book-status .progress {
+        height: 25px;
+    }
+.books-nav {
+    max-width: 1520px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.book-details {
+    max-width: 512px;
+    margin: 0 auto;
+    padding: 25px 0 25px 10px;
+    justify-content: space-between;
+}
+.book-details:nth-child(even) {
+    background-color: #d9d9d9;
+}
+.book-details h4, .book-details div {
+    width: 150px;
+    min-width: 150px;
+    word-wrap: none;
+}
+.sig-count {
+    flex-direction: column;
+}
+.sig-stars {
+    text-align: center;
+}
+
+.give-sig {
+    margin: 50px auto;
+    max-width: 797px;
+    padding: 0 10px;
+}
+.give-sig .form-control {
+    min-width: 165px;
+    margin: 0 10px 10px;
+}
+.give-sig input[type=submit] {
+    width: 100%;
+    margin: 0 10px 10px;
+}
+
+@media only screen and (max-width: 672px) {
+    .book-details {
+        justify-content: center;
+    }
+    .book-details h4 {
+        text-align: center;
+        width: 100%;
+    }
+    .book-details div {
+        flex-direction: row;
+        justify-content: space-evenly;
+        margin-bottom: 0.5rem;
+    }
+    .sig-count {
+        flex-direction: row;
+    }
+    .give-sig .form-control {
+        min-width: 165px;
+    }
+    .give-sig input[type=submit] {
+        width: 100%;
+    }
+
+}
+
+@media only screen and (max-width: 460px) {
+    .home-header {
+        background-position: -14rem center;
+    }
+}
