@@ -86,6 +86,28 @@
     margin: 0 10px 10px;
 }
 
+.active.book-1-color {
+    background-color: #f7b653 !important;
+}
+.active.book-2-color {
+    background-color: #448922 !important;
+}
+.active.book-3-color {
+    background-color: #dc6d37 !important;
+}
+.active.book-4-color {
+    background-color: #3886d7 !important;
+}
+.active.book-5-color {
+    background-color: #6c398c !important;
+}
+.active.book-6-color {
+    background-color: #0d5897 !important;
+}
+.active.book-7-color {
+    background-color: #55c9ee !important;
+}
+
 @media only screen and (max-width: 672px) {
     .book-details {
         justify-content: center;

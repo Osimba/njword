@@ -20,7 +20,7 @@
         <nav>
             <div class="nav nav-pills nav-fill mb-3" role="tablist">
                 @foreach ($books as $book)
-                    <a class="nav-link {{ ($book->id == auth()->user()->currentBook()) ? 'active' : '' }}" id="book-{{ $book->id }}-tab" 
+                    <a class="nav-link book-{{ $book->id }}-color {{ ($book->id == auth()->user()->currentBook()) ? 'active' : '' }}" id="book-{{ $book->id }}-tab" 
                         data-toggle="tab" href="#book-{{ $book->id }}" role="tab"  aria-controls="book-{{ $book->id }}" aria-selected="true">
                         {{ $book->name }}
                     </a>
