@@ -36,9 +36,9 @@
     <span class="w-10">{{ $book->short }}</span>
     <div class="progress">
         <div class="progress-bar progress-bar-striped progress-bar-animated" 
-            role="progressbar" style="width: {{ auth()->user()->completedChapters($book->id) * 10 }}%; background-color: {{ $color }};" 
-            aria-valuenow="{{ auth()->user()->completedChapters($book->id) * 10 }}" aria-valuemin="0" 
-            aria-valuemax="100">{{ auth()->user()->completedChapters($book->id) * 10 }}%</div>
+            role="progressbar" style="width: {{ auth()->user()->getBookPercentage($book->id) }}%; background-color: {{ $color }};" 
+            aria-valuenow="{{ auth()->user()->getBookPercentage($book->id) }}" aria-valuemin="0" 
+            aria-valuemax="100">{{ auth()->user()->getBookPercentage($book->id) }}%</div>
     </div>
-    <span class="w-10">{{ auth()->user()->completedChapters($book->id) }}/10</span>
+    <span class="w-10">{{ auth()->user()->getBookPercentage($book->id) / 10 }}/10</span>
 </div>

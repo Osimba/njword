@@ -21,6 +21,10 @@ class SignaturesController extends Controller
 
         $chapter = Chapter::find($request->get('chapter'));
 
+        if ($request->user()->signatureCount($chapter->id) > 2) {
+            return back()->with('message', 'Thanks to Father and Mother! You already have 2 signatures for this chapter! Let\'s get the evaluation!');
+        }
+
         $signature = new Signature;
 
         $signature->book_id = $chapter->book_id;
@@ -30,7 +34,7 @@ class SignaturesController extends Controller
 
         $request->user()->signatures()->save($signature);
 
-        return back();
+        return back()->with('message', 'Animo! You can do it! Father and Mother are with you!');
     }
 
     public function evaluation(Request $request)
@@ -46,6 +50,10 @@ class SignaturesController extends Controller
 
         $chapter = Chapter::find($request->get('chapter'));
 
+        if($request->user()->evaluationCount($chapter->id)) {
+            return back()->with('message', 'Thanks to Father and Mother! You already have an evaluation for this chapter! Let\'s start the next one!');
+        }
+
         $signature = new Signature;
 
         $signature->book_id = $chapter->book_id;
@@ -56,6 +64,6 @@ class SignaturesController extends Controller
 
         $request->user()->signatures()->save($signature);
 
-        return back();
+        return back()->with('message', 'Animo! Another chapter complete! Keep Going!');
     }
 }

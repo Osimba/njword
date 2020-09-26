@@ -41,11 +41,26 @@ class User extends Authenticatable
         return $this->hasMany(Signature::class);
     }
 
+    public function getBookPercentage($bookID) {
+        
+        $signatures = $this->totalSignaturesForBook($bookID);
+        $evaluations = $this->totalEvaluationsForBook($bookID);
+
+        $sigScore = 3 * $signatures;
+        $evalScore = 4 * $evaluations;
+
+        return $sigScore + $evalScore;
+    }
+
     public function signaturesForChapter($chapterID) {
         return $this->signatures->where('chapter_id', $chapterID)->sortBy('evaluation');
     }
 
-    public function completedChapters($bookID) {
+    public function totalSignaturesForBook($bookID) {
+        return $this->signatures->where('book_id', $bookID)->where('evaluation', 0)->count();
+    }
+
+    public function totalEvaluationsForBook($bookID) {
         
         return $this->signatures->where('book_id', $bookID)->where('evaluation', 1)->count();
     }
