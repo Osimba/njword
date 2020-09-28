@@ -67,12 +67,25 @@ Vue.component('signature', {
             form: {
                 book: 0,
                 chapter: 0,
-                date: '',
+                date: new Date(),
                 listener: '',
                 route: this.isEvaluation ? '/evaluations' : '/signatures',
             }
 
         }
+    },
+
+    created() {
+
+        // Set form date to today's date
+        let currentDate = new Date();
+
+        var month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
+        var date = ('0' + currentDate.getDate()).slice(-2);
+        var year = currentDate.getFullYear();
+        var formattedDate = year + '-' + month + '-' + date;
+
+        this.form.date = formattedDate;
     },
 
     template: `

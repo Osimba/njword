@@ -37317,11 +37317,20 @@ Vue.component('signature', {
       form: {
         book: 0,
         chapter: 0,
-        date: '',
+        date: new Date(),
         listener: '',
         route: this.isEvaluation ? '/evaluations' : '/signatures'
       }
     };
+  },
+  created: function created() {
+    // Set form date to today's date
+    var currentDate = new Date();
+    var month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
+    var date = ('0' + currentDate.getDate()).slice(-2);
+    var year = currentDate.getFullYear();
+    var formattedDate = year + '-' + month + '-' + date;
+    this.form.date = formattedDate;
   },
   template: "\n\n        <form @submit.prevent=\"onSubmit\">\n            <div class=\"form-inline justify-content-around\">\n                <books v-on:bookValue=\"getChapters($event)\"></books>\n                <book-chapters v-on:chapterValue=\"setFormChapter($event)\" v-bind:chapters=\"chapters\"></book-chapters>\n            </div>\n            <div class=\"form-inline justify-content-around\">\n                <input v-model=\"form.date\" class=\"form-control col col-sm-1\" type=\"date\" name=\"date\" id=\"date\">\n                <input v-model=\"form.listener\" type=\"text\" name=\"listener\" id=\"listener\" class=\"form-control col\" placeholder=\"Listener\">\n                <input class=\"btn btn-success\" type=\"submit\" value=\"Add Signature\">\n            </div>\n        </form>\n    ",
   methods: {
