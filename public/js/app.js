@@ -37266,6 +37266,131 @@ module.exports = function(module) {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+window.events = new Vue();
+
+window.flashMessage = function (title, message) {
+  window.events.$emit('flash', title, message);
+};
+
+Vue.component('toast', {
+  props: ['title', 'message'],
+  template: "\n    \n        <div class=\"toast\" role=\"alert\" style=\"opacity: 1; position: fixed; top: 10px; right: 10px;\" aria-live=\"assertive\" aria-atomic=\"true\" v-show=\"show\">\n            <div class=\"toast-header\">\n                <strong class=\"mr-5\" v-html=\"toastTitle\"></strong>\n            </div>\n            <div class=\"toast-body\" v-html=\"toastMessage\"></div>\n        </div>\n    ",
+  data: function data() {
+    return {
+      show: false,
+      toastTitle: '',
+      toastMessage: ''
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    if (this.message) {
+      this.flash(this.title, this.message);
+    }
+
+    window.events.$on('flash', function (title, message) {
+      return _this.flash(title, message);
+    });
+  },
+  methods: {
+    flash: function flash(title, message) {
+      var _this2 = this;
+
+      this.show = true;
+      this.toastTitle = title;
+      this.toastMessage = message;
+      setTimeout(function () {
+        _this2.hide();
+      }, 5000);
+    },
+    hide: function hide() {
+      this.show = false;
+    }
+  }
+});
+Vue.component('signature', {
+  props: ['is-evaluation'],
+  data: function data() {
+    return {
+      chapters: [],
+      form: {
+        book: 0,
+        chapter: 0,
+        date: '',
+        listener: '',
+        route: this.isEvaluation ? '/evaluations' : '/signatures'
+      }
+    };
+  },
+  template: "\n\n        <form @submit.prevent=\"onSubmit\">\n            <div class=\"form-inline justify-content-around\">\n                <books v-on:bookValue=\"getChapters($event)\"></books>\n                <book-chapters v-on:chapterValue=\"setFormChapter($event)\" v-bind:chapters=\"chapters\"></book-chapters>\n            </div>\n            <div class=\"form-inline justify-content-around\">\n                <input v-model=\"form.date\" class=\"form-control col col-sm-1\" type=\"date\" name=\"date\" id=\"date\">\n                <input v-model=\"form.listener\" type=\"text\" name=\"listener\" id=\"listener\" class=\"form-control col\" placeholder=\"Listener\">\n                <input class=\"btn btn-success\" type=\"submit\" value=\"Add Signature\">\n            </div>\n        </form>\n    ",
+  methods: {
+    getChapters: function getChapters(bookID) {
+      var _this3 = this;
+
+      this.setFormBook(bookID);
+      axios.get('/books/' + bookID).then(function (response) {
+        return _this3.chapters = response.data;
+      });
+    },
+    setFormBook: function setFormBook(bookID) {
+      this.form.book = bookID;
+    },
+    setFormChapter: function setFormChapter(chapterID) {
+      this.form.chapter = chapterID;
+    },
+    onSubmit: function onSubmit() {
+      var _this4 = this;
+
+      axios.post(this.form.route, this.form).then(function (response) {
+        // display message on front end
+        flashMessage(response.data.title, response.data.message);
+        _this4.form.listener = '';
+      });
+    }
+  }
+});
+Vue.component('books', {
+  props: ['value'],
+  template: "\n    \n        <select name=\"book\" id=\"book\" class=\"form-control col col-sm-1\"\n            v-model=\"selectedBook\"\n            >\n            <option disabled selected hidden value=\"0\">Select a Book</option>\n            <option v-for=\"book in books\" v-bind:value=\"book.id\">\n                {{ book.name }}\n            </option>\n        </select>\n    ",
+  data: function data() {
+    return {
+      selectedBook: 0,
+      books: []
+    };
+  },
+  mounted: function mounted() {
+    var _this5 = this;
+
+    axios.get('/books').then(function (response) {
+      return _this5.books = response.data;
+    });
+  },
+  watch: {
+    selectedBook: function selectedBook() {
+      this.$emit('bookValue', this.selectedBook);
+    }
+  }
+});
+Vue.component('book-chapters', {
+  props: ['chapters'],
+  template: "\n    \n        <select name=\"chapter\" id=\"chapter\" v-model=\"selectedChapter\" class=\"form-control col\">\n            <option disabled selected hidden value=\"0\">Select a Chapter</option>\n            <option v-for=\"chapter in chapters\" v-bind:value=\"chapter.id\">\n                {{ chapter.number }} - {{ chapter.title }}\n            </option>\n        </select>\n    ",
+  data: function data() {
+    return {
+      selectedChapter: 0
+    };
+  },
+  watch: {
+    selectedChapter: function selectedChapter() {
+      this.$emit('chapterValue', this.selectedChapter);
+    }
+  }
+});
+new Vue({
+  el: '#app',
+  data: {}
+});
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -37313,26 +37438,14 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
-/***/ "./resources/sass/app.scss":
-/*!*********************************!*\
-  !*** ./resources/sass/app.scss ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
 /***/ 0:
-/*!*************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ***!
-  \*************************************************************/
+/*!***********************************!*\
+  !*** multi ./resources/js/app.js ***!
+  \***********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\SupaFudd\Documents\Work\njword\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\SupaFudd\Documents\Work\njword\resources\sass\app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! C:\Users\SupaFudd\Documents\Work\njword\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

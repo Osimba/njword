@@ -28,6 +28,9 @@ Route::get('/home', function () {
     return redirect('/');
 });
 
+Route::get('/books', 'HomeController@getBook');
+Route::get('/books/{book}', 'HomeController@getBookChapters');
+
 Route::post('/signatures', 'SignaturesController@signature')->name('signature');
 Route::post('/evaluations', 'SignaturesController@evaluation')->name('evaluation');
 Route::post('/many-signatures', 'SignaturesController@manySignatures')->name('mSignatures');

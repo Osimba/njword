@@ -45,4 +45,8 @@
 
     @include('partials.evaluation')
 
+    <transition name="fade">
+        <toast title="" message=""></toast>
+    </transition>
+
 @endsection
