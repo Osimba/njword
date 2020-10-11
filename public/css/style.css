@@ -88,6 +88,9 @@
     min-width: 165px;
     margin: 0 10px 10px;
 }
+.give-sig .custom-checkbox {
+    margin: 0 10px 10px;
+}
 .give-sig input[type=submit] {
     width: 100%;
     margin: 0 10px 10px;

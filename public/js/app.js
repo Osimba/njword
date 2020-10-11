@@ -37310,7 +37310,6 @@ Vue.component('toast', {
   }
 });
 Vue.component('signature', {
-  props: ['is-evaluation'],
   data: function data() {
     return {
       chapters: [],
@@ -37318,8 +37317,8 @@ Vue.component('signature', {
         book: 0,
         chapter: 0,
         date: new Date(),
-        listener: '',
-        route: this.isEvaluation ? '/evaluations' : '/signatures'
+        evaluation: false,
+        listener: ''
       }
     };
   },
@@ -37332,7 +37331,7 @@ Vue.component('signature', {
     var formattedDate = year + '-' + month + '-' + date;
     this.form.date = formattedDate;
   },
-  template: "\n\n        <form @submit.prevent=\"onSubmit\">\n            <div class=\"form-inline justify-content-around\">\n                <books v-on:bookValue=\"getChapters($event)\"></books>\n                <book-chapters v-on:chapterValue=\"setFormChapter($event)\" v-bind:chapters=\"chapters\"></book-chapters>\n            </div>\n            <div class=\"form-inline justify-content-around\">\n                <input v-model=\"form.date\" class=\"form-control col col-sm-1\" type=\"date\" name=\"date\" id=\"date\">\n                <input v-model=\"form.listener\" type=\"text\" name=\"listener\" id=\"listener\" class=\"form-control col\" placeholder=\"Listener\">\n                <input class=\"btn btn-success\" type=\"submit\" value=\"Add Signature\">\n            </div>\n        </form>\n    ",
+  template: "\n\n        <form @submit.prevent=\"onSubmit\">\n            <div class=\"form-inline justify-content-around\">\n                <books v-on:bookValue=\"getChapters($event)\"></books>\n                <book-chapters v-on:chapterValue=\"setFormChapter($event)\" v-bind:chapters=\"chapters\"></book-chapters>\n            </div>\n            <div class=\"form-inline justify-content-around\">\n                <input v-model=\"form.date\" class=\"form-control col col-sm-1\" type=\"date\" name=\"date\" id=\"date\">\n                <input v-model=\"form.listener\" type=\"text\" name=\"listener\" id=\"listener\" class=\"form-control col\" placeholder=\"Listener\">\n                <div class=\"col-sm-2 custom-control custom-checkbox\">\n                    <input v-model=\"form.evaluation\" type=\"checkbox\" id=\"evaluation-checkbox\" class=\"custom-control-input\">\n                    <label for=\"evaluation-checkbox\" class=\"custom-control-label\">Evaluation?</label>\n                </div>\n                <input class=\"btn btn-success\" type=\"submit\" value=\"Add Signature\">\n            </div>\n        </form>\n    ",
   methods: {
     getChapters: function getChapters(bookID) {
       var _this3 = this;
@@ -37351,10 +37350,11 @@ Vue.component('signature', {
     onSubmit: function onSubmit() {
       var _this4 = this;
 
-      axios.post(this.form.route, this.form).then(function (response) {
+      axios.post('/signatures', this.form).then(function (response) {
         // display message on front end
         flashMessage(response.data.title, response.data.message);
         _this4.form.listener = '';
+        _this4.form.evaluation = false;
       });
     }
   }
@@ -37454,7 +37454,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\SupaFudd\Documents\Work\njword\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\osiqu\Work\Projects\njword\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

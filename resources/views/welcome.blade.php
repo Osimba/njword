@@ -10,7 +10,6 @@
     <section class="my-5">
         @foreach ($books as $book)
             @include('partials.book-status', ['book' => $book])
-            
         @endforeach
     </section>
 
@@ -36,14 +35,8 @@
             
         </section>
     </section>
-
     <hr>
-
     @include('partials.signature')
-
-    <hr>
-
-    @include('partials.evaluation')
 
     <transition name="fade">
         <toast title="" message=""></toast>

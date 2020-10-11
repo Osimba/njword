@@ -59,8 +59,6 @@ Vue.component('toast', {
 
 Vue.component('signature', {
 
-    props: ['is-evaluation'],
-
     data() {
         return {
             chapters: [],
@@ -68,8 +66,8 @@ Vue.component('signature', {
                 book: 0,
                 chapter: 0,
                 date: new Date(),
+                evaluation: false,
                 listener: '',
-                route: this.isEvaluation ? '/evaluations' : '/signatures',
             }
 
         }
@@ -98,6 +96,10 @@ Vue.component('signature', {
             <div class="form-inline justify-content-around">
                 <input v-model="form.date" class="form-control col col-sm-1" type="date" name="date" id="date">
                 <input v-model="form.listener" type="text" name="listener" id="listener" class="form-control col" placeholder="Listener">
+                <div class="col-sm-2 custom-control custom-checkbox">
+                    <input v-model="form.evaluation" type="checkbox" id="evaluation-checkbox" class="custom-control-input">
+                    <label for="evaluation-checkbox" class="custom-control-label">Evaluation?</label>
+                </div>
                 <input class="btn btn-success" type="submit" value="Add Signature">
             </div>
         </form>
@@ -123,11 +125,12 @@ Vue.component('signature', {
         onSubmit() { 
 
 
-            axios.post(this.form.route, this.form)
+            axios.post('/signatures', this.form)
                 .then(response => {
                     // display message on front end
                     flashMessage(response.data.title, response.data.message);
                     this.form.listener = '';
+                    this.form.evaluation = false;
                 });
 
             
@@ -216,7 +219,4 @@ new Vue({
     data: {
 
     },
-
-    
-
 });
