@@ -36,10 +36,10 @@
         </section>
     </section>
     <hr>
-    @include('partials.signature')
+    <signature></signature>
 
     <transition name="fade">
-        <toast title="" message=""></toast>
+        <Toast title="" message=""></Toast>
     </transition>
 
 @endsection
