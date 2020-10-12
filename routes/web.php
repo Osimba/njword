@@ -31,6 +31,18 @@ Route::get('/home', function () {
 Route::get('/books', 'HomeController@getBook');
 Route::get('/books/{book}', 'HomeController@getBookChapters');
 
+Route::get('/books/{book}/status', function(App\Book $book) {
+    $shortName = $book->short;
+    $status = auth()->user()->getBookPercentage($book->id);
+    $color = $book->getColor();
+
+    return response()->json([
+        'shortName' => $shortName,
+        'status' => $status,
+        'color' => $color
+    ]);
+});
+
 Route::post('/signatures', 'SignaturesController@signature')->name('signature');
 Route::post('/evaluations', 'SignaturesController@evaluation')->name('evaluation');
 Route::post('/many-signatures', 'SignaturesController@manySignatures')->name('mSignatures');

@@ -8,9 +8,10 @@
     </div> --}}
 
     <section class="my-5">
-        @foreach ($books as $book)
-            @include('partials.book-status', ['book' => $book])
-        @endforeach
+        <Status 
+            v-for="book in {{ $books }}" :key="book.id"
+            :bookid="book.id" ref="books"
+        ></Status>
     </section>
 
     <hr>
@@ -36,7 +37,7 @@
         </section>
     </section>
     <hr>
-    <signature></signature>
+    <Signature v-on:signature-added="updateBookStatus($event)"></Signature>
 
     <transition name="fade">
         <Toast title="" message=""></Toast>

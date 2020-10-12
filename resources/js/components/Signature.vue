@@ -1,6 +1,6 @@
 <template>
     <section class="give-sig" id="signatures">
-        <h2 class="text-center mb-4">Add Signature</h2>
+        <h2 class="text-center mb-4" v-on:click="testing()">Add Signature</h2>
         <form @submit.prevent="onSubmit">
             <div class="form-inline justify-content-around">
                 <Books v-on:bookValue="getChapters($event)"></Books>
@@ -68,13 +68,20 @@ export default {
             this.form.chapter = chapterID;
         },
 
+        testing() {
+            this.$emit('signature-added', {book: 1, chapter: 4});
+        },
+
         onSubmit() { 
             axios.post('/signatures', this.form)
                 .then(response => {
+                    this.$emit('signature-added', {book: this.form.book, chapter: this.form.chapter});
+                    
                     // display message on front end
                     flashMessage(response.data.title, response.data.message);
                     this.form.listener = '';
                     this.form.evaluation = false;
+
                 });
         }
     }

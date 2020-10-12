@@ -10,7 +10,6 @@
 
 <script>
 export default {
-    props: ['value'],
     data() {
         return {
             selectedBook: 0,
