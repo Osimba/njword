@@ -22,22 +22,17 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
+    public function index() {
         return view('home');
     }
 
     public function getBook() {
-
         $books = Book::all();
-
         return $books->toArray();
     }
 
     public function getBookChapters(Book $book) {
-
         $chapters = $book->chapters;
-
         return $chapters->toArray();
     }
 }
