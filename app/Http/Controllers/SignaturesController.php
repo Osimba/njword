@@ -14,10 +14,10 @@ class SignaturesController extends Controller
         $currentDate = date('m/d/Y');
 
         $attributes = $request->validate([
-            'listener' => 'required|max:255',
-            'date' => 'required|before_or_equal:' . $currentDate,
             'book' => 'required',
             'chapter' => 'required',
+            'date' => 'required|before_or_equal:' . $currentDate,
+            'listener' => 'required|max:255',
             'evaluation' => 'boolean'
         ]);
 

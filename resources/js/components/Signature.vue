@@ -1,19 +1,23 @@
 <template>
     <section class="give-sig" id="signatures">
         <h2 class="text-center mb-4" v-on:click="testing()">Add Signature</h2>
-        <form @submit.prevent="onSubmit">
+        <form @submit.prevent="onSubmit" @change="delete form.errors[$event.target.name]" @keydown="delete form.errors[$event.target.name]">
             <div class="form-inline justify-content-around">
-                <Books v-on:bookValue="getChapters($event)"></Books>
-                <BookChapters v-on:chapterValue="setFormChapter($event)" v-bind:chapters="chapters"></BookChapters>
+                <Books v-on:bookValue="getChapters($event)" 
+                    v-bind:class="{ formErrors: form.errors['book']}"></Books>
+                <BookChapters v-on:chapterValue="setFormChapter($event)" v-bind:chapters="chapters" 
+                    v-bind:class="{ formErrors: form.errors['chapter']}"></BookChapters>
             </div>
             <div class="form-inline justify-content-around">
-                <input v-model="form.date" class="form-control col col-sm-1" type="date" name="date" id="date">
-                <input v-model="form.listener" type="text" name="listener" id="listener" class="form-control col" placeholder="Listener">
+                <input v-model="form.date" class="form-control col col-sm-1" type="date" name="date" id="date" 
+                    v-bind:class="{ formErrors: form.errors['date']}">
+                <input v-model="form.listener" type="text" name="listener" id="listener" class="form-control col" 
+                    placeholder="Listener" v-bind:class="{ formErrors: form.errors['listener']}">
                 <div class="col-sm-2 custom-control custom-checkbox">
                     <input v-model="form.evaluation" type="checkbox" id="evaluation-checkbox" class="custom-control-input">
                     <label for="evaluation-checkbox" class="custom-control-label">Evaluation?</label>
                 </div>
-                <input class="btn btn-success" type="submit" value="Add Signature">
+                <input class="btn btn-success" type="submit" value="Add Signature" :disabled="Object.keys(form.errors).length > 0">
             </div>
         </form>
     </section>
@@ -29,11 +33,12 @@ export default {
         return {
             chapters: [],
             form: {
-                book: 0,
-                chapter: 0,
+                book: null,
+                chapter: null,
                 date: new Date(),
                 evaluation: false,
                 listener: '',
+                errors: {},
             }
 
         }
@@ -68,20 +73,19 @@ export default {
             this.form.chapter = chapterID;
         },
 
-        testing() {
-            this.$emit('signature-added', {book: 1, chapter: 4});
-        },
-
         onSubmit() { 
             axios.post('/signatures', this.form)
                 .then(response => {
                     this.$emit('signature-added', {book: this.form.book, chapter: this.form.chapter});
-                    
+
                     // display message on front end
                     flashMessage(response.data.title, response.data.message);
                     this.form.listener = '';
                     this.form.evaluation = false;
 
+                })
+                .catch((error) => {
+                    this.form.errors = error.response.data.errors;
                 });
         }
     }
