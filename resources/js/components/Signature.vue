@@ -1,25 +1,30 @@
 <template>
     <section class="give-sig" id="signatures">
-        <h2 class="text-center mb-4" v-on:click="testing()">Add Signature</h2>
-        <form @submit.prevent="onSubmit" @change="delete form.errors[$event.target.name]" @keydown="delete form.errors[$event.target.name]">
-            <div class="form-inline justify-content-around">
-                <Books v-on:bookValue="getChapters($event)" 
-                    v-bind:class="{ formErrors: form.errors['book']}"></Books>
-                <BookChapters v-on:chapterValue="setFormChapter($event)" v-bind:chapters="chapters" 
-                    v-bind:class="{ formErrors: form.errors['chapter']}"></BookChapters>
-            </div>
-            <div class="form-inline justify-content-around">
-                <input v-model="form.date" class="form-control col col-sm-1" type="date" name="date" id="date" 
-                    v-bind:class="{ formErrors: form.errors['date']}">
-                <input v-model="form.listener" type="text" name="listener" id="listener" class="form-control col" 
-                    placeholder="Listener" v-bind:class="{ formErrors: form.errors['listener']}">
-                <div class="col-sm-2 custom-control custom-checkbox">
-                    <input v-model="form.evaluation" type="checkbox" id="evaluation-checkbox" class="custom-control-input">
-                    <label for="evaluation-checkbox" class="custom-control-label">Evaluation?</label>
+        <button type="button" data-toggle="collapse" data-target="#signatureForm" aria-controls="signatureForm" 
+            class="btn btn-block btn-outline-link text-success mb-2" aria-expanded="true">
+            Add Signature <i class="fas fa-chevron-down" aria-hidden="true"></i>
+        </button>
+        <div id="signatureForm" class="collapse" style="">
+            <form @submit.prevent="onSubmit" @change="delete form.errors[$event.target.name]" @keydown="delete form.errors[$event.target.name]">
+                <div class="form-inline justify-content-around">
+                    <Books v-on:bookValue="getChapters($event)" 
+                        v-bind:class="{ formErrors: form.errors['book']}"></Books>
+                    <BookChapters v-on:chapterValue="setFormChapter($event)" v-bind:chapters="chapters" 
+                        v-bind:class="{ formErrors: form.errors['chapter']}"></BookChapters>
                 </div>
-                <input class="btn btn-success" type="submit" value="Add Signature" :disabled="Object.keys(form.errors).length > 0">
-            </div>
-        </form>
+                <div class="form-inline justify-content-around">
+                    <input v-model="form.date" class="form-control col col-sm-1" type="date" name="date" id="date" 
+                        v-bind:class="{ formErrors: form.errors['date']}">
+                    <input v-model="form.listener" type="text" name="listener" id="listener" class="form-control col" 
+                        placeholder="Listener" v-bind:class="{ formErrors: form.errors['listener']}">
+                    <div class="col-sm-2 custom-control custom-checkbox">
+                        <input v-model="form.evaluation" type="checkbox" id="evaluation-checkbox" class="custom-control-input">
+                        <label for="evaluation-checkbox" class="custom-control-label">Evaluation?</label>
+                    </div>
+                    <input class="btn btn-success" type="submit" value="Add Signature" :disabled="Object.keys(form.errors).length > 0">
+                </div>
+            </form>
+        </div>
     </section>
 </template>
 

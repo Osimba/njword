@@ -3,9 +3,6 @@
 @section('content')
 
     <h1 class="text-center mt-3">New Jerusalem with the Word of God Festival</h1>
-    {{-- <div class="home-banner">
-        <div class="home-header"></div>
-    </div> --}}
 
     <section class="my-5">
         <Status 
@@ -27,7 +24,7 @@
                 @endforeach
             </div>
         </nav>
-        <section class="tab-content" id="nav-tabContent">
+        <section class="tab-content book-details-list" id="nav-tabContent">
             @foreach ($books as $book)
                 <article class="tab-pane fade {{ ($book->id == auth()->user()->currentBook()) ? 'show active' : '' }}" id="book-{{ $book->id }}" role="tabpanel" aria-labelledby="book-{{ $book->id }}-tab">
                     @include('partials.book-details', ['book' => $book])
@@ -36,8 +33,9 @@
             
         </section>
     </section>
-    <hr>
-    <Signature v-on:signature-added="updateBookStatus($event)"></Signature>
+    <div class="signatureWrap">
+        <Signature v-on:signature-added="updateBookStatus($event)"></Signature>
+    </div>
 
     <transition name="fade">
         <Toast title="" message=""></Toast>
