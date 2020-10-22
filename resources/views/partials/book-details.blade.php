@@ -1,49 +1,23 @@
-@php
-    switch($book->id) {
-
-        case 1:
-            $color = '#f7b653';
-        break;
-
-        case 2:
-            $color = '#448922';
-        break;
-
-        case 3:
-            $color = '#dc6d37';
-        break;
-
-        case 4:
-            $color = '#3886d7';
-        break;
-
-        case 5:
-            $color = '#6c398c';
-        break;
-
-        case 6:
-            $color = '#0d5897';
-        break;
-
-        case 7:
-            $color = '#55c9ee';
-        break;
-
-    }
-@endphp
-
+<div class="col-12 col-md-6 list-1">
 @foreach ($book->chapters as $chapter)
-    <div class="book-details d-flex flex-wrap align-items-center">
-
+@if ($loop->iteration == 6)
+</div>
+<div class="col-12 col-md-6 list-2">
+@endif
+    <div class="book-details d-flex flex-md-nowrap flex-wrap align-items-center">
         <h4>Chapter {{ $chapter->number }}</h4>
-        <div class="d-flex sig-count">
+        <div class="d-flex sig-count pl-md-5">
             <span>{{ auth()->user()->signatureCount($chapter->id) }} sig.</span>
             <span>{{ auth()->user()->evaluationCount($chapter->id) }} eval.</span>
         </div>
         <div class="sig-stars">
             @foreach (auth()->user()->signaturesForChapter($chapter->id) as $signature)
-                <i class="fas fa-star fa-2x" style="color: {{ $signature->evaluation ? $color : '#ffe300' }};"></i> 
+                <a class="poppovers" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="Signature Details" data-placement="top"
+                    data-html="true" data-content="<strong>Date:</strong> {{ $signature->sig_date }}<br><strong>Listener:</strong> {{ $signature->from_member }}">
+                    <i class="fas fa-star fa-2x {{ $signature->evaluation ? 'book-' . $book->id : 'default' }}-star"></i> 
+                </a>
             @endforeach
         </div>
     </div>
 @endforeach
+</div>

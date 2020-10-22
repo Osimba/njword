@@ -26,7 +26,8 @@
         </nav>
         <section class="tab-content book-details-list" id="nav-tabContent">
             @foreach ($books as $book)
-                <article class="tab-pane fade {{ ($book->id == auth()->user()->currentBook()) ? 'show active' : '' }}" id="book-{{ $book->id }}" role="tabpanel" aria-labelledby="book-{{ $book->id }}-tab">
+                <article class="tab-pane fade {{ ($book->id == auth()->user()->currentBook()) ? 'show active' : '' }}" 
+                    id="book-{{ $book->id }}" role="tabpanel" aria-labelledby="book-{{ $book->id }}-tab">
                     @include('partials.book-details', ['book' => $book])
                 </article>
             @endforeach

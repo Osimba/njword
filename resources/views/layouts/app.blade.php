@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">
 
     <script src="https://kit.fontawesome.com/9fb397285d.js" crossorigin="anonymous"></script>
-    
+
     <title>{{ config('app.name') }}</title>
 </head>
 <body>
@@ -22,5 +22,10 @@
     @include('layouts.footer')
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="{{ URL::asset('js/app.js') }}"></script>
+    <script>
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        })
+    </script>
 </body>
 </html>
