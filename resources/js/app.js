@@ -6,6 +6,9 @@ window.flashMessage = function (title, message) {
     window.events.$emit('flash', title, message);
 }
 
+Vue.component('TabList', require('./components/TabList.vue').default);
+Vue.component('Tab', require('./components/Tab.vue').default);
+Vue.component('ChapterDetails', require('./components/ChapterDetails.vue').default);
 Vue.component('Status', require('./components/Status.vue').default);
 Vue.component('Toast', require('./components/Toast.vue').default);
 Vue.component('Signature', require('./components/Signature.vue').default);
@@ -18,6 +21,16 @@ new Vue({
     methods: {
         updateBookStatus(event) {
             this.$refs.books[event.book-1].getBookStatus();
+        },
+
+        selectBook(event) {
+            this.$refs.details[event.target.id-1].classList.add("show active");
+        }
+    },
+
+    computed: {
+        hash() {
+            return location.hash;
         }
     }
 });

@@ -13,13 +13,13 @@ class BookSeeder extends Seeder
     public function run()
     {
         DB::table('books')->insert([
-            ['name' => 'Sermon Book 1', 'short' => 'Book 1'],
-            ['name' => 'Sermon Book 2', 'short' => 'Book 2'],
-            ['name' => 'Sermon Book 3', 'short' => 'Book 3'],
-            ['name' => 'Sermon Book 4', 'short' => 'Book 4'],
-            ['name' => 'Sermon Book 5', 'short' => 'Book 5'],
-            ['name' => 'Staff of Moses 1', 'short' => 'Staff 1'],
-            ['name' => 'Staff of Moses 2', 'short' => 'Staff 2']
+            ['name' => 'Sermon Book 1', 'short' => 'Book 1', 'color' => '#f7b653'],
+            ['name' => 'Sermon Book 2', 'short' => 'Book 2', 'color' => '#448922'],
+            ['name' => 'Sermon Book 3', 'short' => 'Book 3', 'color' => '#dc6d37'],
+            ['name' => 'Sermon Book 4', 'short' => 'Book 4', 'color' => '#3886d7'],
+            ['name' => 'Sermon Book 5', 'short' => 'Book 5', 'color' => '#6c398c'],
+            ['name' => 'Staff of Moses 1', 'short' => 'Staff 1', 'color' => '#0d5897'],
+            ['name' => 'Staff of Moses 2', 'short' => 'Staff 2', 'color' => '#55c9ee']
         ]);
 
         DB::table('chapters')->insert([

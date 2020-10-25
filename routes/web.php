@@ -13,37 +13,13 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-
-    $books = App\Book::all();
-    $chapters = App\Chapter::all();
-    
-    return view('welcome', compact('books', 'chapters'));
-})->middleware('auth');
-
 Auth::routes();
 
-Route::get('/home', function () {
-    return redirect('/');
-});
+Route::get('/', 'HomeController@index');
 
 Route::get('/books', 'HomeController@getBook');
 Route::get('/books/{book}', 'HomeController@getBookChapters');
-
-Route::get('/books/{book}/status', function(App\Book $book) {
-    $shortName = $book->short;
-    $status = auth()->user()->getBookPercentage($book->id);
-    $color = $book->getColor();
-
-    return response()->json([
-        'shortName' => $shortName,
-        'status' => $status,
-        'color' => $color
-    ]);
-});
+Route::get('/books/{book}/status', 'HomeController@getStatus');
 
 Route::post('/signatures', 'SignaturesController@signature')->name('signature');
-Route::post('/evaluations', 'SignaturesController@evaluation')->name('evaluation');
 Route::post('/many-signatures', 'SignaturesController@manySignatures')->name('mSignatures');
-Route::post('/many-evaluations', 'SignaturesController@manyEvaluations')->name('mEvaluations');

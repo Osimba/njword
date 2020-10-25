@@ -141,6 +141,9 @@
 .active.book-7-color {
     background-color: #55c9ee !important;
 }
+.star-color {
+    color: var(--starColor);
+}
 .default-star {
     color: #ffe300 !important;
 }

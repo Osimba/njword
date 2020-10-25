@@ -12,7 +12,7 @@
         </div>
         <div class="sig-stars">
             @foreach (auth()->user()->signaturesForChapter($chapter->id) as $signature)
-                <a class="poppovers" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="Signature Details" data-placement="top"
+                <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="Signature Details" data-placement="top"
                     data-html="true" data-content="<strong>Date:</strong> {{ $signature->sig_date }}<br><strong>Listener:</strong> {{ $signature->from_member }}">
                     <i class="fas fa-star fa-2x {{ $signature->evaluation ? 'book-' . $book->id : 'default' }}-star"></i> 
                 </a>

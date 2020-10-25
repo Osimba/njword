@@ -68,6 +68,7 @@ export default {
 
             axios.get('/books/' + bookID)
                 .then(response => this.chapters = response.data);
+            console.log(this.chapters);
         },
 
         setFormBook(bookID) {

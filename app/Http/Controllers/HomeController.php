@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Book;
+use App\Chapter;
 
 class HomeController extends Controller
 {
@@ -12,8 +12,7 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->middleware('auth');
     }
 
@@ -23,7 +22,9 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index() {
-        return view('home');
+        $books = Book::all();
+        $chapters = Chapter::all();
+        return view('welcome', compact('books', 'chapters'));
     }
 
     public function getBook() {
@@ -34,5 +35,12 @@ class HomeController extends Controller
     public function getBookChapters(Book $book) {
         $chapters = $book->chapters;
         return $chapters->toArray();
+    }
+
+    public function getStatus(Book $book) {
+        $status = request()->user()->getBookPercentage($book->id);
+        return response()->json([
+            'status' => $status
+        ]);
     }
 }

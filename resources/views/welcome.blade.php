@@ -7,17 +7,25 @@
     <section class="my-5">
         <Status 
             v-for="book in {{ $books }}" :key="book.id"
-            :bookid="book.id" ref="books"
+            ref="books" :book="book"
         ></Status>
     </section>
 
     <hr>
 
     <section class="books-nav my-5 px-4">
-        <nav>
+        <tab-list>
+            @foreach ($books as $book)
+                <Tab name="{{ $book->name }}" color="book-{{ $book->id }}-color"
+                    :selected="{{ ($book->id == auth()->user()->currentBook()) ? 'true' : 'false' }}">
+                    <h1>Content for {{ $book->name }}</h1>
+                </Tab>
+            @endforeach
+        </tab-list>
+        {{-- <nav>
             <div class="nav nav-pills nav-fill mb-3" role="tablist">
                 @foreach ($books as $book)
-                    <a class="nav-link book-{{ $book->id }}-color {{ ($book->id == auth()->user()->currentBook()) ? 'active' : '' }}" id="book-{{ $book->id }}-tab" 
+                    <a @click="selectBook" class="nav-link book-{{ $book->id }}-color {{ ($book->id == auth()->user()->currentBook()) ? 'active' : '' }}" id="{{ $book->id }}" 
                         data-toggle="tab" href="#book-{{ $book->id }}" role="tab"  aria-controls="book-{{ $book->id }}" aria-selected="true">
                         {{ $book->name }}
                     </a>
@@ -31,8 +39,12 @@
                     @include('partials.book-details', ['book' => $book])
                 </article>
             @endforeach
-            
-        </section>
+            <article v-for="book in {{ $books }}" :key="book.id"
+                class="tab-pane fade" id="book-{ book.id }" role="tabpanel"
+                aria-labelledby="book-{ book.id }-tab" ref="details" v-show="">
+                <chapter-details :bookcolor="book.color"></chapter-details>
+            </article>
+        </section> --}}
     </section>
     <div class="signatureWrap">
         <Signature v-on:signature-added="updateBookStatus($event)"></Signature>

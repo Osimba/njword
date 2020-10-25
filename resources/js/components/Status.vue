@@ -4,26 +4,22 @@
         <div class="progress">
             <div class="progress-bar progress-bar-striped progress-bar-animated" 
                 role="progressbar" v-bind:style="styleObject"
-                v-bind:aria-valuenow="book.status" aria-valuemin="0" 
-                aria-valuemax="100">{{ book.status }}%</div>
+                v-bind:aria-valuenow="status" aria-valuemin="0" 
+                aria-valuemax="100">{{ status }}%</div>
         </div>
-        <span class="w-10">{{ book.status / 10 }}/10</span>
+        <span class="w-10">{{ status / 10 }}/10</span>
     </div>
 </template>
 
 <script>
 export default {
-    props: ['bookid'],
+    props: ['book'],
     data() {
         return {
-            book: {
-                shortName: '',
-                status: 0,
-                color: ''
-            },
+            status: 0,
             styleObject: {
                 width: '',
-                backgroundColor: ''
+                backgroundColor: this.book.color
             }
         }
     },
@@ -34,18 +30,15 @@ export default {
 
     methods: {
         getBookStatus() {
-            axios.get('/books/' + this.bookid + '/status')
+            axios.get('/books/' + this.book.id + '/status')
                 .then(response => {
-                    this.book.shortName = response.data.shortName;
-                    this.book.status = response.data.status;
-                    this.book.color = response.data.color;
+                    this.status = response.data.status;
                     this.updateStyles();
                 });    
         },
 
         updateStyles() {
-            this.styleObject.width = this.book.status + '%';
-            this.styleObject.backgroundColor = this.book.color;
+            this.styleObject.width = this.status + '%';
         }
     }
 }
