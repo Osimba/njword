@@ -2001,20 +2001,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['bookcolor'],
+  props: ['chapter', 'bookcolor'],
   data: function data() {
     return {
-      chapter: {
-        number: 0,
-        signatureCount: 0,
-        evaluationCount: 0,
-        color: this.bookcolor
-      },
+      signatureCount: 0,
+      evaluationCount: 0,
+      color: this.bookcolor,
       signatures: []
     };
   },
-  computed: {
-    starColor: function starColor() {//return isEvaluation ? this.chapter.color : '#ffe300';
+  created: function created() {
+    this.getSignatures();
+  },
+  methods: {
+    getSignatures: function getSignatures() {
+      var _this = this;
+
+      axios.get('/chapter/' + this.chapter.id + '/signatures').then(function (response) {
+        _this.signatureCount = response.data.sigCount;
+        _this.evaluationCount = response.data.evalCount;
+        _this.signatures = response.data.signatures;
+      });
+    },
+    starColor: function starColor(signature) {
+      return signature.evaluation ? this.color : '#ffe300';
     }
   }
 });
@@ -37881,9 +37891,9 @@ var render = function() {
       _c("h4", [_vm._v("Chapter " + _vm._s(_vm.chapter.number))]),
       _vm._v(" "),
       _c("div", { staticClass: "d-flex sig-count pl-md-5" }, [
-        _c("span", [_vm._v(_vm._s(_vm.chapter.signatureCount) + " sig.")]),
+        _c("span", [_vm._v(_vm._s(_vm.signatureCount) + " sig.")]),
         _vm._v(" "),
-        _c("span", [_vm._v(_vm._s(_vm.chapter.evaluationCount) + " eval.")])
+        _c("span", [_vm._v(_vm._s(_vm.evaluationCount) + " eval.")])
       ]),
       _vm._v(" "),
       _vm.signatures
@@ -37904,13 +37914,16 @@ var render = function() {
                     "data-placement": "top",
                     "data-html": "true",
                     "data-content":
-                      "<strong>Date:</strong> { signature.date }<br><strong>Listener:</strong> { signature.listener }"
+                      "<strong>Date:</strong> " +
+                      signature.sig_date +
+                      "<br><strong>Listener:</strong> " +
+                      signature.from_member
                   }
                 },
                 [
                   _c("i", {
                     staticClass: "fas fa-star fa-2x",
-                    staticStyle: { color: "{ starColor }" }
+                    style: { color: _vm.starColor(signature) }
                   })
                 ]
               )

@@ -22,7 +22,7 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index() {
-        $books = Book::all();
+        $books = Book::with('chapters')->get();
         $chapters = Chapter::all();
         return view('welcome', compact('books', 'chapters'));
     }
@@ -41,6 +41,17 @@ class HomeController extends Controller
         $status = request()->user()->getBookPercentage($book->id);
         return response()->json([
             'status' => $status
+        ]);
+    }
+
+    public function getSignatures($chapterID) {
+        $signatures = request()->user()->signaturesForChapter($chapterID);
+        $sigCount = request()->user()->signatureCount($chapterID);
+        $evalCount = request()->user()->evaluationCount($chapterID);
+        return response()->json([
+            'sigCount' => $sigCount,
+            'evalCount' => $evalCount,
+            'signatures' => $signatures->values()->toArray()
         ]);
     }
 }

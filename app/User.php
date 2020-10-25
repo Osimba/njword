@@ -61,7 +61,6 @@ class User extends Authenticatable
     }
 
     public function totalEvaluationsForBook($bookID) {
-        
         return $this->signatures->where('book_id', $bookID)->where('evaluation', 1)->count();
     }
 

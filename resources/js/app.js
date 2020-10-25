@@ -21,16 +21,10 @@ new Vue({
     methods: {
         updateBookStatus(event) {
             this.$refs.books[event.book-1].getBookStatus();
-        },
-
-        selectBook(event) {
-            this.$refs.details[event.target.id-1].classList.add("show active");
         }
     },
 
     computed: {
-        hash() {
-            return location.hash;
-        }
+        
     }
 });

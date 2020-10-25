@@ -21,5 +21,7 @@ Route::get('/books', 'HomeController@getBook');
 Route::get('/books/{book}', 'HomeController@getBookChapters');
 Route::get('/books/{book}/status', 'HomeController@getStatus');
 
+Route::get('/chapter/{chpater}/signatures', 'HomeController@getSignatures');
+
 Route::post('/signatures', 'SignaturesController@signature')->name('signature');
 Route::post('/many-signatures', 'SignaturesController@manySignatures')->name('mSignatures');
