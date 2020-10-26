@@ -1,5 +1,5 @@
 <template>
-    <article v-show=isActive>
+    <article :class="{ 'd-flex': isActive, 'flex-wrap': isActive }" v-show=isActive>
         <slot></slot>
     </article>
 </template>

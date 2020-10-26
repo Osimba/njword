@@ -18,9 +18,16 @@
                 <Tab v-for="book in {{ $books }}" :key="book.id"
                     :name="book.name" :color="'book-' + book.id + '-color'"
                     :selected="(book.id === {{ auth()->user()->currentBook() }})">
-                    <chapter-details v-for="chapter in book.chapters"
-                        :chapter="chapter"
-                        :bookcolor="book.color"></chapter-details>
+                    <div class="col-12 col-md-6 list-1">
+                        <chapter-details v-for="(chapter, i) in book.chapters.slice(0,5)" :key="i"
+                            :chapter="chapter"
+                            :bookcolor="book.color"></chapter-details>
+                    </div>
+                    <div class="col-12 col-md-6 list-2">
+                        <chapter-details v-for="(chapter, i) in book.chapters.slice(5)" :key="i"
+                            :chapter="chapter"
+                            :bookcolor="book.color"></chapter-details>
+                    </div>
                 </Tab>
         </tab-list>
     </section>

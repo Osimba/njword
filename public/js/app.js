@@ -38240,7 +38240,8 @@ var render = function() {
           value: _vm.isActive,
           expression: "isActive"
         }
-      ]
+      ],
+      class: { "d-flex": _vm.isActive, "flex-wrap": _vm.isActive }
     },
     [_vm._t("default")],
     2
@@ -50544,16 +50545,9 @@ new Vue({
   methods: {
     updateBookStatus: function updateBookStatus(event) {
       this.$refs.books[event.book - 1].getBookStatus();
-    },
-    selectBook: function selectBook(event) {
-      this.$refs.details[event.target.id - 1].classList.add("show active");
     }
   },
-  computed: {
-    hash: function hash() {
-      return location.hash;
-    }
-  }
+  computed: {}
 });
 
 /***/ }),
