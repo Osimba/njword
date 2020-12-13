@@ -90,7 +90,14 @@
 }
 .sig-stars {
     text-align: center;
+    position: relative;
 }
+.sig-stars .popover {
+    top: -8rem !important;
+}
+    .sig-stars .popover .arrow {
+        left: 3.8rem;
+    }
 .formErrors {
     border-width: 2px;
     box-shadow: 0px 0px 2px 3px #fd5354;
@@ -141,33 +148,7 @@
 .active.book-7-color {
     background-color: #55c9ee !important;
 }
-.star-color {
-    color: var(--starColor);
-}
-.default-star {
-    color: #ffe300 !important;
-}
-.book-1-star {
-    color: #f7b653 !important;
-}
-.book-2-star {
-    color: #448922 !important;
-}
-.book-3-star {
-    color: #dc6d37 !important;
-}
-.book-4-star {
-    color: #3886d7 !important;
-}
-.book-5-star {
-    color: #6c398c !important;
-}
-.book-6-star {
-    color: #0d5897 !important;
-}
-.book-7-star {
-    color: #55c9ee !important;
-}
+
 @media only screen and (max-width: 672px) {
     .book-details {
         justify-content: center;

@@ -1,12 +1,9 @@
 <template>
     <div>
-        <nav class="nav nav-pills nav-fill mb-3">
-            <!-- <a id="book-1-tab" class="nav-link active" data-toggle="tab" href="#book-1" role="tab"  aria-controls="book-1" aria-selected="true">
-                Sermon Book 1
-            </a> -->
-            <a v-for="(tab, i) in tabs" :key="i" class="nav-link"
+        <div class="nav nav-pills nav-fill mb-3" role="tablist">
+            <a v-for="(tab, i) in tabs" :key="i" class="nav-link" role="tab"
                 :class="[tab.color, { active: tab.isActive }]" :href="tab.href" @click="selectTab(tab)">{{ tab.name }}</a>
-        </nav>
+        </div>
         <section class="book-details-list">
             <slot></slot>
         </section>

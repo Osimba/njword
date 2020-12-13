@@ -1,10 +1,12 @@
 <template>
-    <div class="toast" role="alert" style="opacity: 1; position: fixed; top: 10px; right: 10px;" aria-live="assertive" aria-atomic="true" v-show="show">
-        <div class="toast-header">
-            <strong class="mr-5" v-html="toastTitle"></strong>
+    <transition name="fade">
+        <div class="toast" role="alert" style="opacity: 1; position: fixed; top: 10px; right: 10px;" aria-live="assertive" aria-atomic="true" v-show="show">
+            <div class="toast-header">
+                <strong class="mr-5" v-html="toastTitle"></strong>
+            </div>
+            <div class="toast-body" v-html="toastMessage"></div>
         </div>
-        <div class="toast-body" v-html="toastMessage"></div>
-    </div>
+    </transition>
 </template>
 
 <script>

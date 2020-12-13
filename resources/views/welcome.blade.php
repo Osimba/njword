@@ -14,29 +14,26 @@
     <hr>
 
     <section class="books-nav my-5 px-4">
-        <tab-list>
-                <Tab v-for="book in {{ $books }}" :key="book.id"
-                    :name="book.name" :color="'book-' + book.id + '-color'"
-                    :selected="(book.id === {{ auth()->user()->currentBook() }})">
-                    <div class="col-12 col-md-6 list-1">
-                        <chapter-details v-for="(chapter, i) in book.chapters.slice(0,5)" :key="i"
-                            :chapter="chapter"
-                            :bookcolor="book.color"></chapter-details>
-                    </div>
-                    <div class="col-12 col-md-6 list-2">
-                        <chapter-details v-for="(chapter, i) in book.chapters.slice(5)" :key="i"
-                            :chapter="chapter"
-                            :bookcolor="book.color"></chapter-details>
-                    </div>
-                </Tab>
-        </tab-list>
+        <Tab-List>
+            <Tab v-for="book in {{ $books }}" :key="book.id"
+                :name="book.name" :color="'book-' + book.id + '-color'"
+                :selected="(book.id === {{ auth()->user()->currentBook() }})">
+                <div class="col-12 col-md-6 list-1">
+                    <Chapter-Details v-for="(chapter, i) in book.chapters.slice(0,5)" :key="i"
+                        :chapter="chapter"
+                        :bookcolor="book.color"></Chapter-Details>
+                </div>
+                <div class="col-12 col-md-6 list-2">
+                    <Chapter-Details v-for="(chapter, i) in book.chapters.slice(5)" :key="i"
+                        :chapter="chapter"
+                        :bookcolor="book.color"></Chapter-Details>
+                </div>
+            </Tab>
+        </Tab-List>
     </section>
     <div class="signatureWrap">
         <Signature v-on:signature-added="updateBookStatus($event)"></Signature>
     </div>
-
-    <transition name="fade">
-        <Toast title="" message=""></Toast>
-    </transition>
-
+    
+    <Toast title="" message=""></Toast>
 @endsection

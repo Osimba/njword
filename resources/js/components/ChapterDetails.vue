@@ -6,17 +6,23 @@
             <span>{{ evaluationCount }} eval.</span>
         </div>
         <div v-if="signatures" class="sig-stars">
-            <a v-for="(signature, i) in signatures" :key="i" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="Signature Details" data-placement="top"
+            <a v-for="signature in signatures" :key="signature.id" tabindex="0" role="button" class="star-button"
+                data-toggle="popover" data-trigger="focus" title="Title"
                 data-html="true" :data-content="'<strong>Date:</strong> ' + signature.sig_date + '<br><strong>Listener:</strong> ' + signature.from_member">
                 <i class="fas fa-star fa-2x" :style="{ color: starColor(signature) }"></i>
             </a>
+            <!-- <SignatureDetails v-for="signature in signatures" :key="signature.id"></SignatureDetails> -->
         </div>
     </div>
 </template>
 
 <script>
+import SignatureDetails from './SignatureDetails.vue';
+
 export default {
+    components: { SignatureDetails },
     props: ['chapter', 'bookcolor'],
+
     data() {
         return {
             signatureCount: 0,
