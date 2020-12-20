@@ -60,7 +60,6 @@
 
                         axios.post('/signatures/' + data.id + '/edit', data)
                             .then((response) => {
-                                console.log(response.data);
                                 flashMessage(response.data.title, response.data.message);
                                 $('.signature-popovers').popover('hide');
                             });
