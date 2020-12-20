@@ -37,7 +37,7 @@
     <div class="signatureWrap">
         <Signature v-on:signature-added="updateBookStatus($event)"></Signature>
     </div>
-
+    
     <transition name="fade">
         <Toast title="" message=""></Toast>
     </transition>

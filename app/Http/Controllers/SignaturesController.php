@@ -60,4 +60,24 @@ class SignaturesController extends Controller
             'message' => 'Animo! You can do it! Father and Mother are with you!'
         ]);
     }
+
+    public function updateSignature(Signature $signature, Request $request) {
+
+        $currentDate = date('m/d/Y');
+
+        $attributes = $request->validate([
+            'sig_date' => 'required|before_or_equal:' . $currentDate,
+            'from_member' => 'required|max:255'
+        ]);
+
+        $signature->from_member = $attributes['from_member'];
+        $signature->sig_date = $attributes['sig_date'];
+        $signature->save();
+
+        return response()->json([
+            'title' => '<span class="text-success">Signature Updated Successfully</span>', 
+            'message' => 'GBY! Thank you! We Love You!'
+        ]);
+    }
+
 }

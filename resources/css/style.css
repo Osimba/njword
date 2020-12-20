@@ -38,6 +38,23 @@
   opacity: 0;
 }
 
+.slide-fade-enter-active {
+    transition: all .5s ease;
+}
+.slide-fade-leave-active {
+    transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateY(25px);
+    opacity: 0;
+}
+/* Notifications */
+.toast {
+    background-color: #ffffff !important;
+    opacity: 1 !important;
+}
+
 .book-status {
     max-width: 1520px;
     padding: 0 20px;
@@ -91,6 +108,24 @@
 .sig-stars {
     text-align: center;
 }
+/* Star Popovers */
+.popover-header {
+    height: 46px;
+    display: flex;
+    align-items: center;
+}
+    .popover-header .edit-signature {
+        padding: 7px;
+        cursor: pointer;
+    }
+    .popover-header .edit-signature:hover {
+        background-color: #e6e6e6;
+    }
+.popover-body .date, .popover-body .listener{
+    height: 30px;
+    margin-bottom: 7px;
+}
+/* Add Signature Form */
 .formErrors {
     border-width: 2px;
     box-shadow: 0px 0px 2px 3px #fd5354;

@@ -13,7 +13,7 @@ Vue.component('Signature', require('./components/Signature.vue').default);
 new Vue({
     el: '#app',
     data: {
-        
+        show: true
     },
     methods: {
         updateBookStatus(event) {
