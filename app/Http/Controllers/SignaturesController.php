@@ -66,16 +66,26 @@ class SignaturesController extends Controller
         $currentDate = date('m/d/Y');
 
         $attributes = $request->validate([
-            'sig_date' => 'required|before_or_equal:' . $currentDate,
-            'from_member' => 'required|max:255'
+            'date' => 'required|before_or_equal:' . $currentDate,
+            'listener' => 'required|max:255'
         ]);
 
-        $signature->from_member = $attributes['from_member'];
-        $signature->sig_date = $attributes['sig_date'];
+        $signature->from_member = $attributes['listener'];
+        $signature->sig_date = $attributes['date'];
         $signature->save();
 
         return response()->json([
             'title' => '<span class="text-success">Signature Updated Successfully</span>', 
+            'message' => 'GBY! Thank you! We Love You!'
+        ]);
+    }
+
+    public function deleteSignature(Signature $signature) {
+
+        $signature->delete();
+
+        return response()->json([
+            'title' => '<span class="text-success">Signature Removed Successfully</span>', 
             'message' => 'GBY! Thank you! We Love You!'
         ]);
     }

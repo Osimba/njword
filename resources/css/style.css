@@ -94,7 +94,7 @@
 .list-2 .book-details:nth-child(odd) {
     background-color: #d9d9d9;
 }
-.book-details h4, .book-details div {
+.book-details > h4, .book-details > div {
     width: 100%;
     max-width: 150px;
 }
@@ -107,16 +107,34 @@
 }
 .sig-stars {
     text-align: center;
+    display: flex;
+    justify-content: space-evenly;
 }
+    .sig-stars > div {
+        position: relative;
+    }
 /* Star Popovers */
+.popover.bs-popover-top {
+    will-change: transform;
+    top: 0px;
+    left: 0px;
+    transform: translate3d(-82px, -185px, 0px);
+}
+    .popover.bs-popover-top > .arrow {
+        left: 85px;
+    }
 .popover-header {
     height: 46px;
     display: flex;
     align-items: center;
 }
+    .popover-header > span {
+        min-width: 115px;
+    }
     .popover-header .edit-signature {
         padding: 7px;
         cursor: pointer;
+        border-radius: 0.2rem;
     }
     .popover-header .edit-signature:hover {
         background-color: #e6e6e6;

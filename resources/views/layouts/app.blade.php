@@ -22,7 +22,7 @@
     @include('layouts.footer')
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="{{ URL::asset('js/app.js') }}"></script>
-    <script>
+    {{-- <script>
         $(function () {
             $('.signature-popovers').popover({
                 html: true,
@@ -76,6 +76,6 @@
                 $('.signature-popovers').popover('hide');
             }
         });
-    </script>
+    </script> --}}
 </body>
 </html>

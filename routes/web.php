@@ -45,6 +45,7 @@ Route::get('/books/{book}/status', function(App\Book $book) {
 
 Route::post('/signatures', 'SignaturesController@signature')->name('signature');
 Route::post('/evaluations', 'SignaturesController@evaluation')->name('evaluation');
-Route::post('/signatures/{signature}/edit', 'SignaturesController@updateSignature');
+Route::post('/signatures/{signature}/update', 'SignaturesController@updateSignature');
+Route::delete('/signatures/{signature}/delete', 'SignaturesController@deleteSignature');
 Route::post('/many-signatures', 'SignaturesController@manySignatures')->name('mSignatures');
 Route::post('/many-evaluations', 'SignaturesController@manyEvaluations')->name('mEvaluations');
