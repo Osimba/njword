@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+Auth::routes(['verify' => true]);
+
 Route::get('/', function () {
 
     $books = App\Book::all();
